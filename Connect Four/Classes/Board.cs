@@ -25,6 +25,72 @@ public class Board
             }
     }
     
+    public bool HasWinner
+    {
+        get
+        {
+            // Check rows for a winner
+            for (var row = 0; row < Rows; row++)
+            {
+                for (var col = 0; col < Columns - 3; col++)
+                {
+                    if (_board[row, col] != 0 &&
+                        _board[row, col] == _board[row, col + 1] &&
+                        _board[row, col] == _board[row, col + 2] &&
+                        _board[row, col] == _board[row, col + 3])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            // Check columns for a winner
+            for (var row = 0; row < Rows - 3; row++)
+            {
+                for (var col = 0; col < Columns; col++)
+                {
+                    if (_board[row, col] != 0 &&
+                        _board[row, col] == _board[row + 1, col] &&
+                        _board[row, col] == _board[row + 2, col] &&
+                        _board[row, col] == _board[row + 3, col])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            // Check diagonals for a winner
+            for (var row = 0; row < Rows - 3; row++)
+            {
+                for (var col = 0; col < Columns - 3; col++)
+                {
+                    if (_board[row, col] != 0 &&
+                        _board[row, col] == _board[row + 1, col + 1] &&
+                        _board[row, col] == _board[row + 2, col + 2] &&
+                        _board[row, col] == _board[row + 3, col + 3])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            for (var row = 3; row < Rows; row++)
+            {
+                for (var col = 0; col < Columns - 3; col++)
+                {
+                    if (_board[row, col] != 0 &&
+                        _board[row, col] == _board[row - 1, col + 1] &&
+                        _board[row, col] == _board[row - 2, col + 2] &&
+                        _board[row, col] == _board[row - 3, col + 3])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+    }
     
     public bool IsValidMove(int col)
     {
@@ -40,69 +106,7 @@ public class Board
             break;
         }
     }
-    public bool HasWinner()
-    {
-        // Check rows for a winner
-        for (var row = 0; row < Rows; row++)
-        {
-            for (var col = 0; col < Columns - 3; col++)
-            {
-                if (_board[row, col] != 0 &&
-                    _board[row, col] == _board[row, col + 1] &&
-                    _board[row, col] == _board[row, col + 2] &&
-                    _board[row, col] == _board[row, col + 3])
-                {
-                    return true;
-                }
-            }
-        }
-
-        // Check columns for a winner
-        for (var row = 0; row < Rows - 3; row++)
-        {
-            for (var col = 0; col < Columns; col++)
-            {
-                if (_board[row, col] != 0 &&
-                    _board[row, col] == _board[row + 1, col] &&
-                    _board[row, col] == _board[row + 2, col] &&
-                    _board[row, col] == _board[row + 3, col])
-                {
-                    return true;
-                }
-            }
-        }
-
-        // Check diagonals for a winner
-        for (var row = 0; row < Rows - 3; row++)
-        {
-            for (var col = 0; col < Columns - 3; col++)
-            {
-                if (_board[row, col] != 0 &&
-                    _board[row, col] == _board[row + 1, col + 1] &&
-                    _board[row, col] == _board[row + 2, col + 2] &&
-                    _board[row, col] == _board[row + 3, col + 3])
-                {
-                    return true;
-                }
-            }
-        }
-
-        for (var row = 3; row < Rows; row++)
-        {
-            for (var col = 0; col < Columns - 3; col++)
-            {
-                if (_board[row, col] != 0 &&
-                    _board[row, col] == _board[row - 1, col + 1] &&
-                    _board[row, col] == _board[row - 2, col + 2] &&
-                    _board[row, col] == _board[row - 3, col + 3])
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
+    
     public void Print()
     {
         Console.Clear();
