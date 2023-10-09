@@ -1,5 +1,4 @@
 ﻿using Connect_Four.Classes.GameBoard;
-using Connect_Four.Interfaces;
 using static System.Console;
 
 namespace Connect_Four.Classes.Players;
@@ -25,10 +24,7 @@ public class HumanPlayer : Player
             {
                 WriteLine("Invalid move. Please choose a different column.");
             }
-            else
-            {
-                return column;
-            }
+            else return column;
         }
     }
 }

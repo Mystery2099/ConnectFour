@@ -6,8 +6,8 @@ namespace Connect_Four.Classes.Players;
 
 public abstract class Player : IPlayer
 {
-    public string Name { get; set; }
-    public byte PlayerNumber { get; set; }
+    public string Name { get; }
+    public byte PlayerNumber { get; }
 
     protected Player(string name, byte playerNumber)
     {
