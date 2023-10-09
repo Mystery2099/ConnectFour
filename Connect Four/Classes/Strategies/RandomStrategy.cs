@@ -5,7 +5,7 @@ namespace Connect_Four.Classes.Strategies;
 
 public class RandomStrategy : IStrategy
 {
-    public Random Random { get; } = new();
+    private Random Random { get; } = new();
 
     public short GetMove(Board board, short playerNumber)
     {
