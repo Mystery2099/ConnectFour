@@ -13,9 +13,8 @@ public class Game
     {
         _board = Board.Create(BoardTypes.Normal);
 
-        _player1 = new HumanPlayer("Player 1", 1);
-        _player2 = isSinglePlayer ? new ComputerPlayer("Computer", 2) : 
-            new HumanPlayer("Player 2", 2);
+        _player1 = Player.Create(1, true);
+        _player2 = Player.Create(2, !isSinglePlayer);
     }
 
     public void Play()

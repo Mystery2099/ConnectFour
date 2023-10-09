@@ -15,4 +15,10 @@ public abstract class Player : IPlayer
     }
     
     public abstract short MakeMove(Board board);
+
+    public static Player Create(byte playerNum, bool playable)
+    {
+        var name = $"Player {playerNum}";
+        return playable ? new HumanPlayer(name, playerNum) : new ComputerPlayer(name, playerNum);
+    }
 }
