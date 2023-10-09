@@ -1,6 +1,6 @@
 ﻿namespace Connect_Four.Classes.GameBoard;
 
-public enum BoardTypes
+public enum BoardSize
 {
     Normal, Large
 }

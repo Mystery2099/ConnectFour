@@ -12,7 +12,7 @@ public class Game
 
     public Game(bool isSinglePlayer)
     {
-        _board = Board.Create(BoardTypes.Normal);
+        _board = Board.Create(BoardSize.Normal);
 
         _player1 = Player.Create(1, true);
         _player2 = Player.Create(2, !isSinglePlayer);

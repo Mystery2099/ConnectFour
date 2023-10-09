@@ -146,10 +146,10 @@ public class Board
         Console.WriteLine();
     }
 
-    public static Board Create(BoardTypes boardType) => boardType switch
+    public static Board Create(BoardSize boardSize) => boardSize switch
     {
-        BoardTypes.Normal => new Board(4, 4),
-        BoardTypes.Large => new Board(8, 8),
-        _ => throw new ArgumentOutOfRangeException(nameof(boardType), boardType, null)
+        BoardSize.Normal => new Board(4, 4),
+        BoardSize.Large => new Board(8, 8),
+        _ => throw new ArgumentOutOfRangeException(nameof(boardSize), boardSize, null)
     };
 }
