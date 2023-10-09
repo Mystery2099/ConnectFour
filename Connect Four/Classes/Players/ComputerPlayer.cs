@@ -8,8 +8,8 @@ public class ComputerPlayer : Player
 {
     public IStrategy Strategy { get; }
 
-    public ComputerPlayer(string name, short playerNumber) : this(name, playerNumber, new RandomStrategy()){}
-    public ComputerPlayer(string name, short playerNumber, IStrategy strategy) : base(name, playerNumber)
+    public ComputerPlayer(string name, byte playerNumber) : this(name, playerNumber, new RandomStrategy()){}
+    public ComputerPlayer(string name, byte playerNumber, IStrategy strategy) : base(name, playerNumber)
     {
         Strategy = strategy;
     }

@@ -1,5 +1,4 @@
-﻿using Connect_Four.Classes;
-using Connect_Four.Classes.GameBoard;
+﻿using Connect_Four.Classes.GameBoard;
 
 namespace Connect_Four.Interfaces;
 

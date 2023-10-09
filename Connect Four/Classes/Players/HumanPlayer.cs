@@ -6,7 +6,7 @@ namespace Connect_Four.Classes.Players;
 
 public class HumanPlayer : Player
 {
-    public HumanPlayer(string name, short playerNumber) : base(name, playerNumber)
+    public HumanPlayer(string name, byte playerNumber) : base(name, playerNumber)
     {
     }
     
