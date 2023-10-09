@@ -2,14 +2,14 @@
 
 public class Board
 {
-    private Board(short rows, short columns)
+    public Board(short rows, short collumns)
     {
-        Cells = new short[rows, columns];
+        Cells = new short[rows, collumns];
         Rows = rows;
-        Columns = columns;
+        Columns = collumns;
     }
 
-    public short[,] Cells { get; }
+    public short[,] Cells { get; set; }
     public short Rows { get; }
     public short Columns { get; }
 
@@ -106,16 +106,6 @@ public class Board
             break;
         }
     }
-    public void UndoMove(int column, int playerNumber)
-    {
-        for (var row = Rows - 1; row >= 0; row--)
-        {
-            if (Cells[row, column] != playerNumber) continue;
-            Cells[row, column] = 0;
-            break;
-        }
-    }
-
     
     public void Print()
     {
@@ -150,7 +140,7 @@ public class Board
 
         for (var col = 0; col < Columns; col++)
         {
-            Console.Write($" {col} ");
+            Console.Write($" {col}");
         }
 
         Console.WriteLine();
