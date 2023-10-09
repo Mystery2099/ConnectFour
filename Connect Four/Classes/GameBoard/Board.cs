@@ -1,17 +1,17 @@
-﻿namespace Connect_Four.Classes;
+﻿namespace Connect_Four.Classes.GameBoard;
 
 public class Board
 {
-    public Board(int rows, int cols)
+    public Board(short rows, short cols)
     {
-        _board = new int[rows, cols];
+        _board = new short[rows, cols];
         Rows = rows;
         Columns = cols;
     }
 
-    private int[,] _board;
-    public int Rows { get; }
-    public int Columns { get; }
+    private short[,] _board;
+    public short Rows { get; }
+    public short Columns { get; }
 
     public bool IsFull
     {
@@ -97,7 +97,7 @@ public class Board
         return col >= 0 && col < Columns && _board[0, col] == 0;
     }
     
-    public void MakeMove(int col, int player)
+    public void MakeMove(short col, short player)
     {
         for (var row = Rows - 1; row >= 0; row--)
         {
@@ -146,4 +146,11 @@ public class Board
         Console.WriteLine();
     }
 
+    public static Board Create(BoardTypes boardType) => boardType switch
+    {
+        BoardTypes.Normal => new Board(4, 4),
+        BoardTypes.Large => new Board(8, 8),
+        BoardTypes.Small => new Board(2, 2),
+        _ => throw new ArgumentOutOfRangeException(nameof(boardType), boardType, null)
+    };
 }
