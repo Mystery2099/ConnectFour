@@ -26,24 +26,21 @@ public class Game : IGame
     {
         Clear();
         WriteLine("Welcome to Connect Four!\n");
-        var singlePlayer = false;
-        var askForGameMode = true;
-        while (askForGameMode)
+
+        bool singlePlayer;
+        while (true)
         {
             WriteLine("Please enter '1' for single player, \n" +
                       "enter '2' for multiplayer");
-            switch (ReadLine())
-            {
-                case "1":
-                    singlePlayer = true;
-                    askForGameMode = false;
-                    break;
-                case "2":
-                    singlePlayer = false;
-                    askForGameMode = false;
-                    break;
-            }
+
+            var input = ReadLine();
+
+            singlePlayer = input is "1";
+            if (input is "1" or "2") break;
+            
+            WriteLine("Invalid input. Please try again.");
         }
+
         new Game(singlePlayer).Play();
     }
     
@@ -65,7 +62,7 @@ public class Game : IGame
                 break;
             }
             
-            currentPlayer = (currentPlayer == _player1) ? _player2 : _player1;
+            currentPlayer = currentPlayer == _player1 ? _player2 : _player1;
         }
     }
 
