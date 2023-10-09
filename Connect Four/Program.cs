@@ -1,3 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Connect_Four.Classes;
 
-Console.WriteLine("Hello, World!");
+var game = new Game(true);
+game.Play();
+Console.ReadKey();
