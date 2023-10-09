@@ -2,5 +2,5 @@
 
 public enum BoardTypes
 {
-    Normal, Small, Large
+    Normal, Large
 }

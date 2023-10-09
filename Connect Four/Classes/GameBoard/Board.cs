@@ -2,11 +2,11 @@
 
 public class Board
 {
-    public Board(short rows, short cols)
+    public Board(short rows, short collumns)
     {
-        _board = new short[rows, cols];
+        _board = new short[rows, collumns];
         Rows = rows;
-        Columns = cols;
+        Columns = collumns;
     }
 
     private short[,] _board;
@@ -150,7 +150,6 @@ public class Board
     {
         BoardTypes.Normal => new Board(4, 4),
         BoardTypes.Large => new Board(8, 8),
-        BoardTypes.Small => new Board(2, 2),
         _ => throw new ArgumentOutOfRangeException(nameof(boardType), boardType, null)
     };
 }
