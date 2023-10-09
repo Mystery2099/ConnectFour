@@ -15,11 +15,11 @@ public class DefensiveStrategy : IStrategy
 
                 if (board.HasWinner)
                 {
-                    board.UndoMove(col);
+                    board.UndoMove(col, playerNumber);
                     return col;
                 }
 
-                board.UndoMove(col);
+                board.UndoMove(col, playerNumber);
             }
         }
 

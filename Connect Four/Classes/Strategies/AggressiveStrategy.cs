@@ -14,11 +14,11 @@ class AggressiveStrategy : IStrategy
 
             if (board.HasWinner)
             {
-                board.UndoMove(col);
+                board.UndoMove(col, playerNumber);
                 return col;
             }
 
-            board.UndoMove(col);
+            board.UndoMove(col, playerNumber);
         }
 
         for (short col = 0; col < board.Columns; col++)
@@ -28,11 +28,11 @@ class AggressiveStrategy : IStrategy
 
             if (new DefensiveStrategy().GetMove(board, playerNumber) == col)
             {
-                board.UndoMove(col);
+                board.UndoMove(col, playerNumber);
                 return col;
             }
 
-            board.UndoMove(col);
+            board.UndoMove(col, playerNumber);
         }
 
         return new RandomStrategy().GetMove(board, playerNumber);
