@@ -1,4 +1,5 @@
-﻿using Connect_Four.Interfaces;
+﻿using System.Dynamic;
+using Connect_Four.Interfaces;
 
 namespace Connect_Four.Classes.Players;
 
