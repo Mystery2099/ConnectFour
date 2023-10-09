@@ -14,8 +14,5 @@ public class ComputerPlayer : Player
         Strategy = strategy;
     }
 
-    public override short MakeMove(Board board)
-    {
-        return Strategy.GetMove(board, PlayerNumber);
-    }
+    public override short MakeMove(Board board) => Strategy.GetMove(board, PlayerNumber);
 }

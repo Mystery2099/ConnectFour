@@ -21,7 +21,7 @@ public class Game : IGame
         _gameOver = false;
     }
     
-    //Asks the player som questions and starts a new game
+    //Asks the player some questions and starts a new game
     public static void Start()
     {
         Clear();

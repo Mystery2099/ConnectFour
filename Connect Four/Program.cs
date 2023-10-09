@@ -1,5 +1,4 @@
 ﻿using Connect_Four.Classes;
-using static System.Console;
 
 namespace Connect_Four;
 
@@ -9,7 +8,7 @@ internal static class ConnectFour
 
     public static void Main()
     {
-        Title = "Connect 4";
+        Console.Title = "Connect 4";
         do { Game.Start(); } while (ShouldRestart);
     }
 }
