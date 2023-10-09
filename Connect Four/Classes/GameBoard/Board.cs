@@ -4,12 +4,12 @@ public class Board
 {
     private Board(short rows, short columns)
     {
-        _cells = new short[rows, columns];
+        Cells = new short[rows, columns];
         Rows = rows;
         Columns = columns;
     }
 
-    private readonly short[,] _cells;
+    public short[,] Cells { get; }
     public short Rows { get; }
     public short Columns { get; }
 
@@ -18,7 +18,7 @@ public class Board
         get {
             for (var col = 0; col < Columns; col++)
             {
-                if (_cells[0, col] != 0) continue;
+                if (Cells[0, col] != 0) continue;
                 return false;
             }
             return true;
@@ -34,10 +34,10 @@ public class Board
             {
                 for (var col = 0; col < Columns - 3; col++)
                 {
-                    if (_cells[row, col] != 0 &&
-                        _cells[row, col] == _cells[row, col + 1] &&
-                        _cells[row, col] == _cells[row, col + 2] &&
-                        _cells[row, col] == _cells[row, col + 3])
+                    if (Cells[row, col] != 0 &&
+                        Cells[row, col] == Cells[row, col + 1] &&
+                        Cells[row, col] == Cells[row, col + 2] &&
+                        Cells[row, col] == Cells[row, col + 3])
                     {
                         return true;
                     }
@@ -49,10 +49,10 @@ public class Board
             {
                 for (var col = 0; col < Columns; col++)
                 {
-                    if (_cells[row, col] != 0 &&
-                        _cells[row, col] == _cells[row + 1, col] &&
-                        _cells[row, col] == _cells[row + 2, col] &&
-                        _cells[row, col] == _cells[row + 3, col])
+                    if (Cells[row, col] != 0 &&
+                        Cells[row, col] == Cells[row + 1, col] &&
+                        Cells[row, col] == Cells[row + 2, col] &&
+                        Cells[row, col] == Cells[row + 3, col])
                     {
                         return true;
                     }
@@ -64,10 +64,10 @@ public class Board
             {
                 for (var col = 0; col < Columns - 3; col++)
                 {
-                    if (_cells[row, col] != 0 &&
-                        _cells[row, col] == _cells[row + 1, col + 1] &&
-                        _cells[row, col] == _cells[row + 2, col + 2] &&
-                        _cells[row, col] == _cells[row + 3, col + 3])
+                    if (Cells[row, col] != 0 &&
+                        Cells[row, col] == Cells[row + 1, col + 1] &&
+                        Cells[row, col] == Cells[row + 2, col + 2] &&
+                        Cells[row, col] == Cells[row + 3, col + 3])
                     {
                         return true;
                     }
@@ -78,10 +78,10 @@ public class Board
             {
                 for (var col = 0; col < Columns - 3; col++)
                 {
-                    if (_cells[row, col] != 0 &&
-                        _cells[row, col] == _cells[row - 1, col + 1] &&
-                        _cells[row, col] == _cells[row - 2, col + 2] &&
-                        _cells[row, col] == _cells[row - 3, col + 3])
+                    if (Cells[row, col] != 0 &&
+                        Cells[row, col] == Cells[row - 1, col + 1] &&
+                        Cells[row, col] == Cells[row - 2, col + 2] &&
+                        Cells[row, col] == Cells[row - 3, col + 3])
                     {
                         return true;
                     }
@@ -94,15 +94,15 @@ public class Board
     
     public bool IsValidMove(int col)
     {
-        return col >= 0 && col < Columns && _cells[0, col] == 0;
+        return col >= 0 && col < Columns && Cells[0, col] == 0;
     }
     
     public void MakeMove(short col, short player)
     {
         for (var row = Rows - 1; row >= 0; row--)
         {
-            if (_cells[row, col] != 0) continue;
-            _cells[row, col] = player;
+            if (Cells[row, col] != 0) continue;
+            Cells[row, col] = player;
             break;
         }
     }
@@ -110,8 +110,8 @@ public class Board
     {
         for (var row = Rows - 1; row >= 0; row--)
         {
-            if (_cells[row, column] != playerNumber) continue;
-            _cells[row, column] = 0;
+            if (Cells[row, column] != playerNumber) continue;
+            Cells[row, column] = 0;
             break;
         }
     }
@@ -127,7 +127,7 @@ public class Board
             {
                 Console.Write("|");
 
-                switch (_cells[row,col])
+                switch (Cells[row,col])
                 {
                     case 0:
                         Console.Write(" ");
