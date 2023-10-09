@@ -1,8 +1,9 @@
 ﻿using Connect_Four.Classes;
+using Connect_Four.Classes.GameBoard;
 
 namespace Connect_Four.Interfaces;
 
 public interface IStrategy
 {
-    int GetMove(Board board, int playerNumber);
+    short GetMove(Board board, short playerNumber);
 }

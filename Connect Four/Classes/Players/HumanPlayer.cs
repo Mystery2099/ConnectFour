@@ -1,22 +1,23 @@
-﻿using Connect_Four.Interfaces;
+﻿using Connect_Four.Classes.GameBoard;
+using Connect_Four.Interfaces;
 using static System.Console;
 
 namespace Connect_Four.Classes.Players;
 
 public class HumanPlayer : Player
 {
-    public HumanPlayer(string name, int playerNumber) : base(name, playerNumber)
+    public HumanPlayer(string name, short playerNumber) : base(name, playerNumber)
     {
     }
     
-    public override int MakeMove(Board board)
+    public override short MakeMove(Board board)
     {
         while (true)
         {
             Write($"{Name}, enter a column number: ");
             var input = ReadLine();
 
-            if (!int.TryParse(input, out var column))
+            if (!short.TryParse(input, out var column))
             {
                 WriteLine("Invalid input. Please enter a number.");
             }

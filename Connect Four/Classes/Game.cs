@@ -1,55 +1,49 @@
-﻿using Connect_Four.Classes.Players;
+﻿using Connect_Four.Classes.GameBoard;
+using Connect_Four.Classes.Players;
 
 namespace Connect_Four.Classes;
 
 public class Game
 {
-    private Board board;
-    private Player player1;
-    private Player player2;
+    private readonly Board _board;
+    private readonly Player _player1;
+    private readonly Player _player2;
 
     public Game(bool isSinglePlayer)
     {
-        board = new Board(4, 4);
+        _board = Board.Create(BoardTypes.Normal);
 
-        if (isSinglePlayer)
-        {
-            player1 = new HumanPlayer("Player 1", 1);
-            player2 = new ComputerPlayer("Computer", 2);
-        }
-        else
-        {
-            player1 = new HumanPlayer("Player 1", 1);
-            player2 = new HumanPlayer("Player 2", 2);
-        }
+        _player1 = new HumanPlayer("Player 1", 1);
+        _player2 = isSinglePlayer ? new ComputerPlayer("Computer", 2) : 
+            new HumanPlayer("Player 2", 2);
     }
 
     public void Play()
     {
-        var currentPlayer = player1;
+        var currentPlayer = _player1;
 
         while (true)
         {
-            board.Print();
+            _board.Print();
 
-            var column = currentPlayer.MakeMove(board);
-            board.MakeMove(column, currentPlayer.PlayerNumber);
+            var column = currentPlayer.MakeMove(_board);
+            _board.MakeMove(column, currentPlayer.PlayerNumber);
 
-            if (board.HasWinner)
+            if (_board.HasWinner)
             {
-                board.Print();
+                _board.Print();
                 Console.WriteLine($"{currentPlayer.Name} wins!");
                 break;
             }
 
-            if (board.IsFull)
+            if (_board.IsFull)
             {
-                board.Print();
+                _board.Print();
                 Console.WriteLine("The game is a draw.");
                 break;
             }
 
-            currentPlayer = (currentPlayer == player1) ? player2 : player1;
+            currentPlayer = (currentPlayer == _player1) ? _player2 : _player1;
         }
     }
 }

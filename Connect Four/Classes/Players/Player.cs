@@ -1,4 +1,4 @@
-﻿using System.Dynamic;
+﻿using Connect_Four.Classes.GameBoard;
 using Connect_Four.Interfaces;
 
 namespace Connect_Four.Classes.Players;
@@ -6,13 +6,13 @@ namespace Connect_Four.Classes.Players;
 public abstract class Player : IPlayer
 {
     public string Name { get; set; }
-    public int PlayerNumber { get; set; }
+    public short PlayerNumber { get; set; }
 
-    protected Player(string name, int playerNumber)
+    protected Player(string name, short playerNumber)
     {
         Name = name;
         PlayerNumber = playerNumber;
     }
     
-    public abstract int MakeMove(Board board);
+    public abstract short MakeMove(Board board);
 }

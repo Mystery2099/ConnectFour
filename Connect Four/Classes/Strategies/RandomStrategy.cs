@@ -1,4 +1,5 @@
-﻿using Connect_Four.Interfaces;
+﻿using Connect_Four.Classes.GameBoard;
+using Connect_Four.Interfaces;
 
 namespace Connect_Four.Classes.Strategies;
 
@@ -6,11 +7,11 @@ public class RandomStrategy : IStrategy
 {
     public Random Random { get; } = new();
 
-    public int GetMove(Board board, int playerNumber)
+    public short GetMove(Board board, short playerNumber)
     {
         while (true)
         {
-            var column = Random.Next(board.Columns);
+            var column = (short)Random.Next(board.Columns);
 
             if (board.IsValidMove(column))
             {
