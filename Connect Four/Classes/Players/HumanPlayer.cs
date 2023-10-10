@@ -18,7 +18,7 @@ public class HumanPlayer : Player
 
             if (!short.TryParse(input, out var column))
             {
-                WriteLine("Invalid input. Please enter a number.");
+                WriteLine($"Invalid input. Please enter a number between 0 and {board.Columns - 1}.");
             }
             else if (!board.IsValidMove(column))
             {
