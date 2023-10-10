@@ -1,7 +1,5 @@
 ﻿namespace Connect_Four.Classes.GameBoard;
 
-//Probably replace using columns and rows with a single size number when creating new board
-//because boards should always be squares
 public class Board
 {
     private Board(short rows, short columns)
@@ -147,10 +145,8 @@ public class Board
 
     public static Board Create(BoardSize boardSize) => boardSize switch
     {
-        //Needs to be worked on because connecting 4 still works on larger sizes
-        //however if it is 8x8, 8 matches should be required
-        BoardSize.Normal => new Board(4, 4),
-        BoardSize.Large => new Board(8, 8),
+        BoardSize.Normal => new Board(6, 7),
+        BoardSize.Large => new Board(12, 14),
         _ => throw new ArgumentOutOfRangeException(nameof(boardSize), boardSize, null)
     };
 }
