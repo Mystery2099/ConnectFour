@@ -7,6 +7,8 @@ namespace Connect_Four.Classes;
 
 public class Game : IGame
 {
+    public static bool ShouldRestart;
+
     private readonly Board _board;
     private readonly Player _player1;
     private readonly Player _player2;
@@ -24,19 +26,20 @@ public class Game : IGame
     //Asks the player some questions and starts a new game
     public static void Start()
     {
+        string[] validInputs = { "1", "2" };
         Clear();
         WriteLine("Welcome to Connect Four!\n");
 
         bool singlePlayer;
         while (true)
         {
-            WriteLine("Please enter '1' for single player, \n" +
-                      "enter '2' for multiplayer");
+            WriteLine($"Please enter '{validInputs[0]}' for single player, \n" +
+                      $"enter '{validInputs[1]}' for multiplayer");
 
             var input = ReadLine();
 
-            singlePlayer = input is "1";
-            if (input is "1" or "2") break;
+            singlePlayer = input == validInputs[0];
+            if (validInputs.Contains(input)) break;
             
             WriteLine("Invalid input. Please try again.");
         }
@@ -56,54 +59,58 @@ public class Game : IGame
             _board.MakeMove(column, currentPlayer.PlayerNumber);
             
             _gameOver = _board.HasWinner || _board.IsFull;
+            
             if (_gameOver)
             {
                 GameOver(currentPlayer);
                 break;
             }
             
-            currentPlayer = currentPlayer == _player1 ? _player2 : _player1;
+            currentPlayer = (currentPlayer == _player1) ? _player2 : _player1;
         }
     }
 
     public void GameOver(Player currentPlayer)
     {
         _board.Print();
+        
         if (_board.HasWinner)
         {
             WriteLine($"{currentPlayer.Name} wins!");
-        }
+        } 
         else if (_board.IsFull)
         {
             WriteLine("The game is a draw.");
         }
-        ConnectFour.ShouldRestart = AskToRestart();
+        
+        ShouldRestart = AskToRestart();
     }
 
     private static bool AskToRestart()
     {
-        var complete = false;
-        var restart = false;
+        string[] validInputs = { "1", "2" };
+        bool restart;
         
-        WriteLine("Would you like to play again? (Please enter '1' for yes and '2' for no)");
+        WriteLine($"Would you like to play again? (Please enter '{validInputs[0]}' for yes and '{validInputs[1]}' for no)");
 
-        while (!complete)
+        while (true)
         {
-            switch (ReadLine())
+            var input = ReadLine();
+            
+            if (input == validInputs[0])
             {
-                case "1":
-                    restart = true;
-                    complete = true;
-                    break;
-                case "2":
-                    restart = false;
-                    complete = true;
-                    WriteLine("Closing Game...");
-                    break;
-                default:
-                    WriteLine("Please enter '1' or '2'!");
-                    continue;
+                restart = true;
+                break;
             }
+
+            if (input == validInputs[1])
+            {
+                restart = false;
+                WriteLine("Closing Game...");
+                break;
+            }
+            
+            WriteLine($"Your input was invalid!\nPlease enter '{validInputs[0]}' or '{validInputs[1]}'!");
         }
 
         return restart;
