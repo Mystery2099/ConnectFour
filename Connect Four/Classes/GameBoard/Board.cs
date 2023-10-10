@@ -1,4 +1,6 @@
-﻿namespace Connect_Four.Classes.GameBoard;
+﻿using static System.Console;
+
+namespace Connect_Four.Classes.GameBoard;
 
 public class Board
 {
@@ -15,14 +17,15 @@ public class Board
 
     public bool IsFull
     {
-        get {
+        get 
+        {
             for (var column = 0; column < Columns; column++)
             {
                 if (Cells[0, column] != 0) continue;
                 return false;
             }
             return true;
-            }
+        }
     }
     
     public bool HasWinner
@@ -91,8 +94,8 @@ public class Board
             return false;
         }
     }
-    
-    public bool IsValidMove(int col) => col >= 0 && col < Columns && Cells[0, col] is 0;
+
+    public bool IsValidMove(int col) => (col >= 0 && col < Columns && Cells[0, col] is 0);
 
     public void MakeMove(short col, short player)
     {
@@ -106,41 +109,41 @@ public class Board
     
     public void Print()
     {
-        Console.Clear();
+        Clear();
 
         for (var row = 0; row < Rows; row++)
         {
             for (var col = 0; col < Columns; col++)
             {
-                Console.Write("|");
-
-                switch (Cells[row,col])
+                Write("|");
+                
+                switch (Cells[row, col])
                 {
                     case 0:
-                        Console.Write(" ");
+                        Write(" ");
                         break;
                     case 1:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("O");
-                        Console.ResetColor();
+                        ForegroundColor = ConsoleColor.Red;
+                        Write("O");
+                        ResetColor();
                         break;
                     case 2:
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("O");
-                        Console.ResetColor();
+                        ForegroundColor = ConsoleColor.Yellow;
+                        Write("O");
+                        ResetColor();
                         break;
                 }
             }
 
-            Console.WriteLine("|");
+            WriteLine("|");
         }
 
         for (var col = 0; col < Columns; col++)
         {
-            Console.Write($" {col}");
+            Write($" {col}");
         }
 
-        Console.WriteLine();
+        WriteLine();
     }
 
     public static Board Create(BoardSize boardSize) => boardSize switch
