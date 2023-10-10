@@ -7,7 +7,7 @@ namespace Connect_Four.Classes;
 
 public class Game : IGame
 {
-    public static bool ShouldRestart;
+    public static bool ShouldRestart { get; private set; }
 
     private readonly Board _board;
     private readonly Player _player1;
@@ -26,15 +26,16 @@ public class Game : IGame
     //Asks the player some questions and starts a new game
     public static void Start()
     {
+        bool singlePlayer;
         string[] validInputs = { "1", "2" };
+        
         Clear();
         WriteLine("Welcome to Connect Four!\n");
 
-        bool singlePlayer;
         while (true)
         {
-            WriteLine($"Please enter '{validInputs[0]}' for single player, \n" +
-                      $"enter '{validInputs[1]}' for multiplayer");
+            WriteLine($"Enter '{validInputs[0]}' for single player\n" +
+                      $"Enter '{validInputs[1]}' for multiplayer");
 
             var input = ReadLine();
 
@@ -73,15 +74,19 @@ public class Game : IGame
     public void GameOver(Player currentPlayer)
     {
         _board.Print();
+
+        var output = string.Empty;
         
         if (_board.HasWinner)
         {
-            WriteLine($"{currentPlayer.Name} wins!");
+            output = $"{currentPlayer.Name} wins!";
         } 
         else if (_board.IsFull)
         {
-            WriteLine("The game is a draw.");
+            output = "The game is a draw.";
         }
+        
+        WriteLine(output);
         
         ShouldRestart = AskToRestart();
     }
