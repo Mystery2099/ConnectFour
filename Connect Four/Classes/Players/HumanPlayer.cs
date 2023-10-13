@@ -9,7 +9,7 @@ internal class HumanPlayer : Player
     {
     }
     
-    public override short MakeMove(Board board)
+    public override short MakeMove(Board.Board board)
     {
         while (true)
         {

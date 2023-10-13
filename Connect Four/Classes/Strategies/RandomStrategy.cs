@@ -6,7 +6,7 @@ internal class RandomStrategy : IStrategy
 {
     private readonly Random _random = new();
 
-    public short GetMove(Board board, short playerNumber)
+    public short GetMove(Board.Board board, short playerNumber)
     {
         while (true)
         {

@@ -4,5 +4,5 @@ namespace Connect_Four.Classes.Players;
 
 internal interface IPlayer
 {
-    short MakeMove(Board board);
+    short MakeMove(Board.Board board);
 }

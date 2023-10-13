@@ -2,20 +2,20 @@
 using Connect_Four.Classes.Players;
 using static System.Console;
 
-namespace Connect_Four.Classes;
+namespace Connect_Four.Classes.Game;
 
 internal class Game : IGame
 {
     public static bool ShouldRestart { get; private set; }
 
-    private readonly Board _board;
+    private readonly Board.Board _board;
     private readonly Player _player1;
     private readonly Player _player2;
     private bool _gameOver;
 
     private Game(bool isSinglePlayer)
     {
-        _board = Board.Create(BoardSize.Normal);
+        _board = Board.Board.Create(BoardSize.Normal);
 
         _player1 = Player.Create(1, true);
         _player2 = Player.Create(2, !isSinglePlayer);

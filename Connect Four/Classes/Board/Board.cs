@@ -1,8 +1,9 @@
-﻿using static System.Console;
+﻿using Connect_Four.Classes.GameBoard;
+using static System.Console;
 
-namespace Connect_Four.Classes.GameBoard;
+namespace Connect_Four.Classes.Board;
 
-internal class Board
+internal class Board : IBoard
 {
     private Board(short rows, short columns)
     {
@@ -11,8 +12,8 @@ internal class Board
         Columns = columns;
     }
 
-    private short[,] Cells { get; }
-    private short Rows { get; }
+    public short[,] Cells { get; }
+    public short Rows { get; }
     public short Columns { get; }
     
     public bool IsFull()

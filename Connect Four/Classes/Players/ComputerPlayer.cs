@@ -12,5 +12,5 @@ internal class ComputerPlayer : Player
         Strategy = strategy;
     }
 
-    public override short MakeMove(Board board) => Strategy.GetMove(board, PlayerNumber);
+    public override short MakeMove(Board.Board board) => Strategy.GetMove(board, PlayerNumber);
 }

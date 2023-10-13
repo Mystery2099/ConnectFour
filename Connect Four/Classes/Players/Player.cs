@@ -17,7 +17,7 @@ internal abstract class Player : IPlayer
     /*
      * prompts the player to make a move and returns the column number(short) where the player wants to place their piece
      */
-    public abstract short MakeMove(Board board);
+    public abstract short MakeMove(Board.Board board);
 
     public static Player Create(byte playerNum, bool playable)
     {

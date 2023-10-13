@@ -4,5 +4,5 @@ namespace Connect_Four.Classes.Strategies;
 
 internal interface IStrategy
 {
-    short GetMove(Board board, short playerNumber);
+    short GetMove(Board.Board board, short playerNumber);
 }
