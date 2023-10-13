@@ -1,5 +1,5 @@
 ﻿using Connect_Four.Classes.GameBoard;
-using Connect_Four.Interfaces;
+using Connect_Four.Classes.Strategies;
 
 namespace Connect_Four.Classes.Players;
 

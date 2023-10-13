@@ -1,6 +1,5 @@
 ﻿using Connect_Four.Classes.GameBoard;
 using Connect_Four.Classes.Players;
-using Connect_Four.Interfaces;
 using static System.Console;
 
 namespace Connect_Four.Classes;

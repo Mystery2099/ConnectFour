@@ -1,6 +1,6 @@
 ﻿using Connect_Four.Classes.GameBoard;
 
-namespace Connect_Four.Interfaces;
+namespace Connect_Four.Classes.Strategies;
 
 internal interface IStrategy
 {
