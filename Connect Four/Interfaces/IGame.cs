@@ -2,7 +2,7 @@
 
 namespace Connect_Four.Interfaces;
 
-public interface IGame
+internal interface IGame
 {
     void Play();
     void GameOver(Player currentPlayer);

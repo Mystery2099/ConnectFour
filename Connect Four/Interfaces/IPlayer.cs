@@ -2,7 +2,7 @@
 
 namespace Connect_Four.Interfaces;
 
-public interface IPlayer
+internal interface IPlayer
 {
     short MakeMove(Board board);
 }

@@ -3,7 +3,7 @@ using static System.Console;
 
 namespace Connect_Four.Classes.Players;
 
-public class HumanPlayer : Player
+internal class HumanPlayer : Player
 {
     public HumanPlayer(string name, byte playerNumber) : base(name, playerNumber)
     {

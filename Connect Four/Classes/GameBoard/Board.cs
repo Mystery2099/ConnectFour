@@ -2,7 +2,7 @@
 
 namespace Connect_Four.Classes.GameBoard;
 
-public class Board
+internal class Board
 {
     private Board(short rows, short columns)
     {
@@ -11,8 +11,8 @@ public class Board
         Columns = columns;
     }
 
-    public short[,] Cells { get; set; }
-    public short Rows { get; }
+    private short[,] Cells { get; }
+    private short Rows { get; }
     public short Columns { get; }
 
     public bool IsFull
@@ -47,9 +47,10 @@ public class Board
                 }
             }
 
-            // Check columns for a winner
+            
             for (var row = 0; row < Rows - 3; row++)
             {
+                // Check columns for a winner
                 for (var column = 0; column < Columns; column++)
                 {
                     if (Cells[row, column] != 0 &&
@@ -60,11 +61,8 @@ public class Board
                         return true;
                     }
                 }
-            }
-
-            // Check diagonals for a winner
-            for (var row = 0; row < Rows - 3; row++)
-            {
+                
+                // Check diagonals for a winner
                 for (var column = 0; column < Columns - 3; column++)
                 {
                     if (Cells[row, column] != 0 &&
@@ -146,7 +144,7 @@ public class Board
         WriteLine();
     }
 
-    public static Board Create(BoardSize boardSize) => boardSize switch
+    internal static Board Create(BoardSize boardSize) => boardSize switch
     {
         BoardSize.Normal => new Board(6, 7),
         BoardSize.Large => new Board(12, 14),

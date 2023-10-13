@@ -3,7 +3,7 @@ using Connect_Four.Interfaces;
 
 namespace Connect_Four.Classes.Strategies;
 
-public class RandomStrategy : IStrategy
+internal class RandomStrategy : IStrategy
 {
     private Random Random { get; } = new();
 

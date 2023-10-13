@@ -5,7 +5,7 @@ using static System.Console;
 
 namespace Connect_Four.Classes;
 
-public class Game : IGame
+internal class Game : IGame
 {
     public static bool ShouldRestart { get; private set; }
 

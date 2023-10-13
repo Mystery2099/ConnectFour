@@ -4,7 +4,7 @@ using Connect_Four.Interfaces;
 
 namespace Connect_Four.Classes.Players;
 
-public abstract class Player : IPlayer
+internal abstract class Player : IPlayer
 {
     public string Name { get; }
     public byte PlayerNumber { get; }
