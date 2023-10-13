@@ -20,7 +20,7 @@ internal class HumanPlayer : Player
             {
                 WriteLine($"Invalid input. Please enter a number between 0 and {board.Columns - 1}.");
             }
-            else if (!board.IsValidMove(column))
+            else if (!board.IsMoveValid(column))
             {
                 WriteLine("Invalid move. Please choose a different column.");
             }

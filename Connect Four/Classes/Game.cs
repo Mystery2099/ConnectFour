@@ -23,7 +23,9 @@ internal class Game : IGame
         _gameOver = false;
     }
     
-    //Asks the player some questions and starts a new game
+    /*
+     * starts a new game by asking the player some questions and creating a new instance of the Game class.
+     */
     public static void Start()
     {
         bool singlePlayer;
@@ -48,6 +50,10 @@ internal class Game : IGame
         new Game(singlePlayer).Play();
     }
     
+    /*
+     * starts playing the game by alternating turns between players until there is a winner or the board is full.
+     * basically starts and contains the primary game loop.
+     */
     public void Play()
     {
         var currentPlayer = _player1;
@@ -59,7 +65,7 @@ internal class Game : IGame
             var column = currentPlayer.MakeMove(_board);
             _board.MakeMove(column, currentPlayer.PlayerNumber);
             
-            _gameOver = _board.HasWinner || _board.IsFull;
+            _gameOver = _board.HasWinner() || _board.IsFull();
             
             if (_gameOver)
             {
@@ -71,17 +77,21 @@ internal class Game : IGame
         }
     }
 
+    /*
+     * ends the game and announces whether there was a winner or the board is full.
+     * also uses ShouldRestart method to ask the player if they would like to play again
+     */
     public void GameOver(Player currentPlayer)
     {
         _board.Print();
 
         var output = string.Empty;
         
-        if (_board.HasWinner)
+        if (_board.HasWinner())
         {
             output = $"{currentPlayer.Name} wins!";
         } 
-        else if (_board.IsFull)
+        else if (_board.IsFull())
         {
             output = "The game is a draw.";
         }

@@ -5,15 +5,15 @@ namespace Connect_Four.Classes.Strategies;
 
 internal class RandomStrategy : IStrategy
 {
-    private Random Random { get; } = new();
+    private readonly Random _random = new();
 
     public short GetMove(Board board, short playerNumber)
     {
         while (true)
         {
-            var column = (short)Random.Next(board.Columns);
+            var column = (short)_random.Next(board.Columns);
 
-            if (board.IsValidMove(column))
+            if (board.IsMoveValid(column))
             {
                 return column;
             }

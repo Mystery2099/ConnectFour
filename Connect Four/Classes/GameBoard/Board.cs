@@ -14,87 +14,85 @@ internal class Board
     private short[,] Cells { get; }
     private short Rows { get; }
     public short Columns { get; }
-
-    public bool IsFull
-    {
-        get 
-        {
-            for (var column = 0; column < Columns; column++)
-            {
-                if (Cells[0, column] != 0) continue;
-                return false;
-            }
-            return true;
-        }
-    }
     
-    public bool HasWinner
+    public bool IsFull()
     {
-        get
+        for (var column = 0; column < Columns; column++)
         {
-            // Check rows for a winner
-            for (var row = 0; row < Rows; row++)
-            {
-                for (var column = 0; column < Columns - 3; column++)
-                {
-                    if (Cells[row, column] != 0 &&
-                        Cells[row, column] == Cells[row, column + 1] &&
-                        Cells[row, column] == Cells[row, column + 2] &&
-                        Cells[row, column] == Cells[row, column + 3])
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            
-            for (var row = 0; row < Rows - 3; row++)
-            {
-                // Check columns for a winner
-                for (var column = 0; column < Columns; column++)
-                {
-                    if (Cells[row, column] != 0 &&
-                        Cells[row, column] == Cells[row + 1, column] &&
-                        Cells[row, column] == Cells[row + 2, column] &&
-                        Cells[row, column] == Cells[row + 3, column])
-                    {
-                        return true;
-                    }
-                }
-                
-                // Check diagonals for a winner
-                for (var column = 0; column < Columns - 3; column++)
-                {
-                    if (Cells[row, column] != 0 &&
-                        Cells[row, column] == Cells[row + 1, column + 1] &&
-                        Cells[row, column] == Cells[row + 2, column + 2] &&
-                        Cells[row, column] == Cells[row + 3, column + 3])
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            for (var row = 3; row < Rows; row++)
-            {
-                for (var col = 0; col < Columns - 3; col++)
-                {
-                    if (Cells[row, col] != 0 &&
-                        Cells[row, col] == Cells[row - 1, col + 1] &&
-                        Cells[row, col] == Cells[row - 2, col + 2] &&
-                        Cells[row, col] == Cells[row - 3, col + 3])
-                    {
-                        return true;
-                    }
-                }
-            }
-
+            if (Cells[0, column] != 0) continue;
             return false;
         }
+
+        return true;
     }
 
-    public bool IsValidMove(int col) => (col >= 0 && col < Columns && Cells[0, col] is 0);
+    public bool HasWinner()
+    {
+        // Check rows for a winner
+        for (var row = 0; row < Rows; row++)
+        {
+            for (var column = 0; column < Columns - 3; column++)
+            {
+                if (Cells[row, column] != 0 &&
+                    Cells[row, column] == Cells[row, column + 1] &&
+                    Cells[row, column] == Cells[row, column + 2] &&
+                    Cells[row, column] == Cells[row, column + 3])
+                {
+                    return true;
+                }
+            }
+        }
 
+
+        for (var row = 0; row < Rows - 3; row++)
+        {
+            // Check columns for a winner
+            for (var column = 0; column < Columns; column++)
+            {
+                if (Cells[row, column] != 0 &&
+                    Cells[row, column] == Cells[row + 1, column] &&
+                    Cells[row, column] == Cells[row + 2, column] &&
+                    Cells[row, column] == Cells[row + 3, column])
+                {
+                    return true;
+                }
+            }
+
+            // Check diagonals for a winner
+            for (var column = 0; column < Columns - 3; column++)
+            {
+                if (Cells[row, column] != 0 &&
+                    Cells[row, column] == Cells[row + 1, column + 1] &&
+                    Cells[row, column] == Cells[row + 2, column + 2] &&
+                    Cells[row, column] == Cells[row + 3, column + 3])
+                {
+                    return true;
+                }
+            }
+        }
+
+        for (var row = 3; row < Rows; row++)
+        {
+            for (var col = 0; col < Columns - 3; col++)
+            {
+                if (Cells[row, col] != 0 &&
+                    Cells[row, col] == Cells[row - 1, col + 1] &&
+                    Cells[row, col] == Cells[row - 2, col + 2] &&
+                    Cells[row, col] == Cells[row - 3, col + 3])
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public bool IsMoveValid(int col) => col >= 0 && col < Columns && Cells[0, col] is 0;
+
+    /*
+     * attempts to make a move for the specified player in the specified column.
+     */
     public void MakeMove(short col, short player)
     {
         for (var row = Rows - 1; row >= 0; row--)
@@ -105,6 +103,9 @@ internal class Board
         }
     }
     
+    /*
+     * Prints the current state of the board to the console
+     */
     public void Print()
     {
         Clear();
