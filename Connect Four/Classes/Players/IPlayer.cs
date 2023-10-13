@@ -1,8 +1,6 @@
-﻿using Connect_Four.Classes.GameBoard;
-
-namespace Connect_Four.Classes.Players;
+﻿namespace Connect_Four.Classes.Players;
 
 internal interface IPlayer
 {
-    short MakeMove(Board.Board board);
+    short MakeMove(Boards.Board board);
 }

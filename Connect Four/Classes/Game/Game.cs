@@ -1,4 +1,4 @@
-﻿using Connect_Four.Classes.GameBoard;
+﻿using Connect_Four.Classes.Boards;
 using Connect_Four.Classes.Players;
 using static System.Console;
 
@@ -8,14 +8,14 @@ internal class Game : IGame
 {
     public static bool ShouldRestart { get; private set; }
 
-    private readonly Board.Board _board;
+    private readonly Boards.Board _board;
     private readonly Player _player1;
     private readonly Player _player2;
     private bool _gameOver;
 
-    private Game(bool isSinglePlayer)
+    private Game(bool isSinglePlayer, BoardSize boardSize)
     {
-        _board = Board.Board.Create(BoardSize.Normal);
+        _board = Boards.Board.Create(boardSize);
 
         _player1 = Player.Create(1, true);
         _player2 = Player.Create(2, !isSinglePlayer);
@@ -45,9 +45,11 @@ internal class Game : IGame
             
             WriteLine("Invalid input. Please try again.");
         }
-
-        new Game(singlePlayer).Play();
+        
+        new Game(singlePlayer, Board.AskForSize()).Play();
     }
+
+    
     
     /*
      * starts playing the game by alternating turns between players until there is a winner or the board is full.

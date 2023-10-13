@@ -1,5 +1,4 @@
-﻿using Connect_Four.Classes.GameBoard;
-using static System.Console;
+﻿using static System.Console;
 
 namespace Connect_Four.Classes.Players;
 
@@ -9,7 +8,7 @@ internal class HumanPlayer : Player
     {
     }
     
-    public override short MakeMove(Board.Board board)
+    public override short MakeMove(Boards.Board board)
     {
         while (true)
         {

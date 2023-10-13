@@ -1,5 +1,4 @@
-﻿using Connect_Four.Classes.GameBoard;
-using Connect_Four.Classes.Strategies;
+﻿using Connect_Four.Classes.Strategies;
 
 namespace Connect_Four.Classes.Players;
 
@@ -17,7 +16,7 @@ internal abstract class Player : IPlayer
     /*
      * prompts the player to make a move and returns the column number(short) where the player wants to place their piece
      */
-    public abstract short MakeMove(Board.Board board);
+    public abstract short MakeMove(Boards.Board board);
 
     public static Player Create(byte playerNum, bool playable)
     {

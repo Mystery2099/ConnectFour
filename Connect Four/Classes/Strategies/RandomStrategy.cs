@@ -1,12 +1,10 @@
-﻿using Connect_Four.Classes.GameBoard;
-
-namespace Connect_Four.Classes.Strategies;
+﻿namespace Connect_Four.Classes.Strategies;
 
 internal class RandomStrategy : IStrategy
 {
     private readonly Random _random = new();
 
-    public short GetMove(Board.Board board, short playerNumber)
+    public short GetMove(Boards.Board board, short playerNumber)
     {
         while (true)
         {

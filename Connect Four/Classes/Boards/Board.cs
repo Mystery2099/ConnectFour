@@ -1,7 +1,6 @@
-﻿using Connect_Four.Classes.GameBoard;
-using static System.Console;
+﻿using static System.Console;
 
-namespace Connect_Four.Classes.Board;
+namespace Connect_Four.Classes.Boards;
 
 internal class Board : IBoard
 {
@@ -146,6 +145,27 @@ internal class Board : IBoard
         WriteLine();
     }
 
+    internal static BoardSize AskForSize()
+    {
+        while (true)
+        {
+            var output = "Please input ";
+            var options = Enum.GetValues(typeof(BoardSize));
+            for (var i = 0; i < options.Length; i++)
+            {
+                if (i > 0) output += ", or ";
+                output += $"'{i}' for a {options.GetValue(i)} board";
+            }
+            
+            WriteLine(output);
+            var input = ReadLine();
+            
+            if (!byte.TryParse(input, out var inputNum)) continue;
+            if (options.Length < inputNum) continue;
+            return (BoardSize)(options.GetValue(inputNum) ?? BoardSize.Normal);
+        }
+    }
+    
     internal static Board Create(BoardSize boardSize) => boardSize switch
     {
         BoardSize.Normal => new Board(6, 7),

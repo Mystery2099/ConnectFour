@@ -1,4 +1,4 @@
-﻿namespace Connect_Four.Classes.Board;
+﻿namespace Connect_Four.Classes.Boards;
 
 internal interface IBoard
 {

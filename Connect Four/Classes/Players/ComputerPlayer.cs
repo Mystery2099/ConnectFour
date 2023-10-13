@@ -1,5 +1,4 @@
-﻿using Connect_Four.Classes.GameBoard;
-using Connect_Four.Classes.Strategies;
+﻿using Connect_Four.Classes.Strategies;
 
 namespace Connect_Four.Classes.Players;
 
@@ -12,5 +11,5 @@ internal class ComputerPlayer : Player
         Strategy = strategy;
     }
 
-    public override short MakeMove(Board.Board board) => Strategy.GetMove(board, PlayerNumber);
+    public override short MakeMove(Boards.Board board) => Strategy.GetMove(board, PlayerNumber);
 }
