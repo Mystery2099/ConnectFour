@@ -8,14 +8,14 @@ internal class Game : IGame
 {
     public static bool ShouldRestart { get; private set; }
 
-    private readonly Boards.Board _board;
+    private readonly Board _board;
     private readonly Player _player1;
     private readonly Player _player2;
     private bool _gameOver;
 
     private Game(bool isSinglePlayer, BoardSize boardSize)
     {
-        _board = Boards.Board.Create(boardSize);
+        _board = Board.Create(boardSize);
 
         _player1 = Player.Create(1, true);
         _player2 = Player.Create(2, !isSinglePlayer);
@@ -35,8 +35,8 @@ internal class Game : IGame
 
         while (true)
         {
-            WriteLine($"Enter '{validInputs[0]}' for single player\n" +
-                      $"Enter '{validInputs[1]}' for multiplayer");
+            WriteLine($"Enter '{validInputs[0]}' for single player(Play against a computer with completely randomized moves)\n" +
+                      $"Enter '{validInputs[1]}' for multiplayer(Play against a friend, or yourself)");
 
             var input = ReadLine();
 
