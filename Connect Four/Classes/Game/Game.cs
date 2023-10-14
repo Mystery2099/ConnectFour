@@ -56,13 +56,9 @@ internal class Game : IGame
             }
 
             if (input == validInputs[0])
-            {
                 return GameMode.SinglePlayer;
-            }
             if (input == validInputs[1])
-            {
                 return GameMode.MultiPlayer;
-            }
         }
     }
     
