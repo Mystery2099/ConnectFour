@@ -38,23 +38,30 @@ internal class Game : IGame
 
     /*
      * Asks the user to select a game mode and returns their selection
+     * TODO: Automate it a little more
     */
     private static GameMode SetGameMode()
     {
+        string[] validInputs = { "0", "1" };
+
         while (true)
         {
-            WriteLine("Enter '0' for single player (Play against a computer with completely randomized moves)\n" +
-                      "Enter '1' for multiplayer (Play against a friend, or yourself)");
-            
-            switch (ReadLine())
+            WriteLine($"Enter '{validInputs[0]}' for single player (Play against a computer with completely randomized moves)\n" +
+                      $"Enter '{validInputs[1]}' for multiplayer (Play against a friend, or yourself)");
+            var input = ReadLine();
+            if (!validInputs.Contains(input))
             {
-                case "0":
-                    return GameMode.SinglePlayer;
-                case "1":
-                    return GameMode.MultiPlayer;
-                default:
-                    WriteLine("Invalid input. Please try again.");
-                    break;
+                WriteLine("Invalid input. Please try again.");
+                continue;
+            }
+
+            if (input == validInputs[0])
+            {
+                return GameMode.SinglePlayer;
+            }
+            if (input == validInputs[1])
+            {
+                return GameMode.MultiPlayer;
             }
         }
     }
@@ -112,7 +119,7 @@ internal class Game : IGame
 
     private static bool AskToRestart()
     {
-        string[] validInputs = { "1", "2" };
+        string[] validInputs = { "0", "1" };
         bool restart;
         
         WriteLine($"Would you like to play again? (Please enter '{validInputs[0]}' for yes and '{validInputs[1]}' for no)");

@@ -7,7 +7,7 @@ internal interface IBoard
     short Columns { get; }
     bool IsFull();
     bool HasWinner();
-    bool IsMoveValid(int col);
-    void MakeMove(short col, short player);
+    bool IsMoveValid(short column);
+    void MakeMove(short column, byte player);
     void Print();
 }

@@ -2,5 +2,5 @@
 
 internal interface IStrategy
 {
-    short GetMove(Boards.Board board, short playerNumber);
+    short GetMove(Boards.Board board, byte playerNumber);
 }

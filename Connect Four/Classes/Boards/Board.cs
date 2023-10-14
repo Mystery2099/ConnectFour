@@ -88,17 +88,17 @@ internal class Board : IBoard
         return false;
     }
 
-    public bool IsMoveValid(int col) => col >= 0 && col < Columns && Cells[0, col] is 0;
+    public bool IsMoveValid(short column) => column >= 0 && column < Columns && Cells[0, column] is 0;
 
     /*
      * attempts to make a move for the specified player in the specified column.
      */
-    public void MakeMove(short col, short player)
+    public void MakeMove(short column, byte player)
     {
         for (var row = Rows - 1; row >= 0; row--)
         {
-            if (Cells[row, col] != 0) continue;
-            Cells[row, col] = player;
+            if (Cells[row, column] != 0) continue;
+            Cells[row, column] = player;
             break;
         }
     }
@@ -170,11 +170,17 @@ internal class Board : IBoard
         }
     }
 
+    /*
+     * Creates a new Board using user input from AskForSize()
+     */
     internal static Board Create() => Create(AskForSize());
+    
+    /*
+     * creates a new board using a parameter so it can be done manually through code
+     */
     internal static Board Create(BoardSize boardSize) => boardSize switch
     {
         BoardSize.Small => new Board(4, 5),
-        BoardSize.Normal => new Board(6, 7),
         BoardSize.Large => new Board(8, 9),
         _ => new Board(6, 7)
     };
