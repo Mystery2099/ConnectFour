@@ -13,12 +13,15 @@ internal class Game : IGame
     private readonly Player _player2;
     private bool _gameOver;
 
-    private Game(bool isSinglePlayer, BoardSize boardSize)
+    private Game()
     {
-        _board = Board.Create(boardSize);
+        var gameMode = SetGameMode();
 
+        _board = Board.Create();
+        
         _player1 = Player.Create(1, true);
-        _player2 = Player.Create(2, !isSinglePlayer);
+        _player2 = Player.Create(2, gameMode == GameMode.MultiPlayer);
+        
         _gameOver = false;
     }
     
@@ -27,29 +30,34 @@ internal class Game : IGame
      */
     public static void Start()
     {
-        bool singlePlayer;
-        string[] validInputs = { "1", "2" };
-        
         Clear();
         WriteLine("Welcome to Connect Four!\n");
-
-        while (true)
-        {
-            WriteLine($"Enter '{validInputs[0]}' for single player(Play against a computer with completely randomized moves)\n" +
-                      $"Enter '{validInputs[1]}' for multiplayer(Play against a friend, or yourself)");
-
-            var input = ReadLine();
-
-            singlePlayer = input == validInputs[0];
-            if (validInputs.Contains(input)) break;
-            
-            WriteLine("Invalid input. Please try again.");
-        }
-        
-        new Game(singlePlayer, Board.AskForSize()).Play();
+        //Creates a new Game and begins the game loop in Play()
+        new Game().Play();
     }
 
-    
+    /*
+     * Asks the user to select a game mode and returns their selection
+    */
+    private static GameMode SetGameMode()
+    {
+        while (true)
+        {
+            WriteLine("Enter '0' for single player(Play against a computer with completely randomized moves)\n" +
+                      "Enter '1' for multiplayer(Play against a friend, or yourself)");
+            
+            switch (ReadLine())
+            {
+                case "0":
+                    return GameMode.SinglePlayer;
+                case "1":
+                    return GameMode.MultiPlayer;
+                default:
+                    WriteLine("Invalid input. Please try again.");
+                    break;
+            }
+        }
+    }
     
     /*
      * starts playing the game by alternating turns between players until there is a winner or the board is full.
@@ -119,9 +127,11 @@ internal class Game : IGame
                 break;
             }
 
+            restart = input == validInputs[0];
+            if (restart) break;
+
             if (input == validInputs[1])
             {
-                restart = false;
                 WriteLine("Closing Game...");
                 break;
             }
