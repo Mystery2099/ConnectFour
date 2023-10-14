@@ -169,7 +169,8 @@ internal class Board : IBoard
             WriteLine("You must enter a number within the given range!");
         }
     }
-    
+
+    internal static Board Create() => Create(AskForSize());
     internal static Board Create(BoardSize boardSize) => boardSize switch
     {
         BoardSize.Small => new Board(4, 5),
