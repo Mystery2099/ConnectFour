@@ -32,7 +32,7 @@ internal class Game : IGame
     {
         Clear();
         WriteLine("Welcome to Connect Four!\n");
-        //Creates a new Game and begins the game loop in Play()
+        //Creates a new Game and starts the game loop in Play()
         new Game().Play();
     }
 
@@ -43,8 +43,8 @@ internal class Game : IGame
     {
         while (true)
         {
-            WriteLine("Enter '0' for single player(Play against a computer with completely randomized moves)\n" +
-                      "Enter '1' for multiplayer(Play against a friend, or yourself)");
+            WriteLine("Enter '0' for single player (Play against a computer with completely randomized moves)\n" +
+                      "Enter '1' for multiplayer (Play against a friend, or yourself)");
             
             switch (ReadLine())
             {
@@ -120,12 +120,6 @@ internal class Game : IGame
         while (true)
         {
             var input = ReadLine();
-            
-            if (input == validInputs[0])
-            {
-                restart = true;
-                break;
-            }
 
             restart = input == validInputs[0];
             if (restart) break;
