@@ -2,5 +2,5 @@
 
 internal enum BoardSize
 {
-    Normal, Large
+    Small, Normal, Large
 }

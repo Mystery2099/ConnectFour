@@ -149,27 +149,32 @@ internal class Board : IBoard
     {
         while (true)
         {
-            var output = "Please input ";
+            var output = "Enter";
             var options = Enum.GetValues(typeof(BoardSize));
             for (var i = 0; i < options.Length; i++)
             {
-                if (i > 0) output += ", or ";
+                output += i > 0 ? ",\n" : ' ';
                 output += $"'{i}' for a {options.GetValue(i)} board";
             }
             
             WriteLine(output);
             var input = ReadLine();
-            
-            if (!byte.TryParse(input, out var inputNum)) continue;
-            if (options.Length < inputNum) continue;
-            return (BoardSize)(options.GetValue(inputNum) ?? BoardSize.Normal);
+
+            if (byte.TryParse(input, out var inputNum) && inputNum < options.Length)
+            {
+                return (BoardSize)(options.GetValue(inputNum) ?? BoardSize.Normal);
+            }
+
+            Clear();
+            WriteLine("You must enter a number within the given range!");
         }
     }
     
     internal static Board Create(BoardSize boardSize) => boardSize switch
     {
+        BoardSize.Small => new Board(4, 5),
         BoardSize.Normal => new Board(6, 7),
-        BoardSize.Large => new Board(12, 14),
-        _ => throw new ArgumentOutOfRangeException(nameof(boardSize), boardSize, null)
+        BoardSize.Large => new Board(8, 9),
+        _ => new Board(6, 7)
     };
 }
