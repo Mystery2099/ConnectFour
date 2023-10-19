@@ -38,7 +38,6 @@ internal class Game : IGame
 
     /*
      * Asks the user to select a game mode and returns their selection
-     * TODO: Automate it a little more
     */
     private static GameMode SetGameMode()
     {
