@@ -26,6 +26,11 @@ internal class Board : IBoard
         return true;
     }
 
+    /*
+     * TODO Need to use and return a single boolean variable instead of using return so much
+     * TODO or (preferably)
+     * TODO Need to separate into more several methods
+     */
     public bool HasWinner()
     {
         // Check rows for a winner
@@ -91,7 +96,7 @@ internal class Board : IBoard
     public bool IsMoveValid(short column) => column >= 0 && column < Columns && Cells[0, column] is 0;
 
     /*
-     * attempts to make a move for the specified player in the specified column.
+     * attempts to make a move for the specified player in the specified column
      */
     public void MakeMove(short column, byte player)
     {
@@ -137,15 +142,12 @@ internal class Board : IBoard
             WriteLine("|");
         }
 
-        for (var col = 0; col < Columns; col++)
-        {
-            Write($" {col}");
-        }
+        for (var col = 0; col < Columns; col++) Write($" {col}");
 
         WriteLine();
     }
 
-    internal static BoardSize AskForSize()
+    private static BoardSize AskForSize()
     {
         while (true)
         {
