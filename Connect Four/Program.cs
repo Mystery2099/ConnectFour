@@ -1,5 +1,4 @@
-﻿using Connect_Four.Classes;
-using Connect_Four.Classes.Game;
+﻿using Connect_Four.Classes.Game;
 
 Console.Title = "Connect 4";
 
