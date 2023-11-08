@@ -2,5 +2,5 @@
 
 internal interface IPlayer
 {
-    short MakeMove(Boards.Board board);
+    void MakeMove(ref Boards.Board board);
 }

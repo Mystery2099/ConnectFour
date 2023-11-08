@@ -8,9 +8,10 @@ internal class Game : IGame
 {
     public static bool ShouldRestart { get; private set; }
 
-    private readonly Board _board;
+    private Board _board;
     private readonly Player _player1;
     private readonly Player _player2;
+    private Player _currentPlayer;
     private bool _gameOver;
 
     private Game()
@@ -21,6 +22,7 @@ internal class Game : IGame
         
         _player1 = Player.Create(1, true);
         _player2 = Player.Create(2, gameMode == GameMode.MultiPlayer);
+        _currentPlayer = _player1;
         
         _gameOver = false;
     }
@@ -67,24 +69,21 @@ internal class Game : IGame
      */
     public void Play()
     {
-        var currentPlayer = _player1;
-
         while (true)
         {
             _board.Print();
 
-            var column = currentPlayer.MakeMove(_board);
-            _board.MakeMove(column, currentPlayer.PlayerNumber);
+            _currentPlayer.MakeMove(ref _board);
             
             _gameOver = _board.HasWinner() || _board.IsFull();
             
             if (_gameOver)
             {
-                GameOver(currentPlayer);
+                GameOver();
                 break;
             }
             
-            currentPlayer = (currentPlayer == _player1) ? _player2 : _player1;
+            _currentPlayer = (_currentPlayer == _player1) ? _player2 : _player1;
         }
     }
 
@@ -92,7 +91,7 @@ internal class Game : IGame
      * ends the game and announces whether there was a winner or the board is full.
      * also uses ShouldRestart method to ask the player if they would like to play again
      */
-    public void GameOver(Player currentPlayer)
+    public void GameOver()
     {
         _board.Print();
 
@@ -100,7 +99,7 @@ internal class Game : IGame
         
         if (_board.HasWinner())
         {
-            output = $"{currentPlayer.Name} wins!";
+            output = $"{_currentPlayer.Name} wins!";
         } 
         else if (_board.IsFull())
         {

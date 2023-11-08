@@ -8,14 +8,15 @@ internal class HumanPlayer : Player
     {
     }
     
-    public override short MakeMove(Boards.Board board)
+    public override void MakeMove(ref Boards.Board board)
     {
+        short column;
         while (true)
         {
             Write($"{Name}, enter a column number: ");
             var input = ReadLine();
 
-            if (!short.TryParse(input, out var column))
+            if (!short.TryParse(input, out column))
             {
                 WriteLine($"Invalid input. Please enter a number between 0 and {board.Columns - 1}.");
             }
@@ -23,7 +24,8 @@ internal class HumanPlayer : Player
             {
                 WriteLine("Invalid move. Please choose a different column.");
             }
-            else return column;
+            else break;
         }
+        board.MakeMove(column, PlayerNumber);
     }
 }

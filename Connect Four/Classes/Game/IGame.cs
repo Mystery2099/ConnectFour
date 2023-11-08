@@ -5,5 +5,5 @@ namespace Connect_Four.Classes.Game;
 internal interface IGame
 {
     void Play();
-    void GameOver(Player currentPlayer);
+    void GameOver();
 }
