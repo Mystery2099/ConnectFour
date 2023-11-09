@@ -187,7 +187,7 @@ internal class Board : IBoard
             WriteLine($"Please enter the number of {prompt} you would like your board to have:");
             var input = ReadLine();
 
-            if (int.TryParse(input, out var inputNum) && inputNum is < 10 and > 3) return inputNum;
+            if (int.TryParse(input, out var inputNum) && inputNum is < 10 and > 0) return inputNum;
 
             Clear();
             WriteLine("You must enter a number which is less than 10 and greater than 3");

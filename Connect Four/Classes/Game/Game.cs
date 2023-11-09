@@ -92,7 +92,7 @@ internal class Game : IGame
                 if (!ShouldRestart)
                 {
                     _currentBoard = Board.Create(_currentBoard.Rows, _currentBoard.Columns);
-                    
+                    _currentPlayer = _player1;
                     continue;
                 }
                 break;
