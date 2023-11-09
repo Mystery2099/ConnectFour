@@ -8,7 +8,8 @@ internal class Game : IGame
 {
     public static bool ShouldRestart { get; private set; }
 
-    private Board _board;
+    private Board _currentBoard;
+    private Board? _previousBoard;
     private readonly Player _player1;
     private readonly Player _player2;
     private Player _currentPlayer;
@@ -18,7 +19,7 @@ internal class Game : IGame
     {
         var gameMode = SetGameMode();
         
-        _board = Board.Create();
+        _currentBoard = Board.Create();
         _player1 = Player.Create(1, true);
         _player2 = Player.Create(2, gameMode == GameMode.MultiPlayer);
         _currentPlayer = _player1;
@@ -70,15 +71,30 @@ internal class Game : IGame
     {
         while (true)
         {
-            _board.Print();
+            Clear();
+            if (_previousBoard != null)
+            {
+                WriteLine("Previous Board:");
+                _previousBoard.Print();
+                WriteLine("\nCurrent Board:");
+            }
+            _currentBoard.Print();
 
-            _currentPlayer.MakeMove(ref _board);
+            _previousBoard = _currentBoard.Clone();
+
+            _currentPlayer.MakeMove(ref _currentBoard);
             
-            _gameOver = _board.HasWinner() || _board.IsFull();
+            _gameOver = _currentBoard.HasWinner() || _currentBoard.IsFull();
             
             if (_gameOver)
             {
                 GameOver();
+                if (!ShouldRestart)
+                {
+                    _currentBoard = Board.Create(_currentBoard.Rows, _currentBoard.Columns);
+                    
+                    continue;
+                }
                 break;
             }
             
@@ -92,15 +108,16 @@ internal class Game : IGame
      */
     public void GameOver()
     {
-        _board.Print();
+        Clear();
+        _currentBoard.Print();
 
         var output = string.Empty;
         
-        if (_board.HasWinner())
+        if (_currentBoard.HasWinner())
         {
             output = $"{_currentPlayer.Name} wins!";
         } 
-        else if (_board.IsFull())
+        else if (_currentBoard.IsFull())
         {
             output = "The game is a draw.";
         }
@@ -115,11 +132,16 @@ internal class Game : IGame
         string[] validInputs = { "0", "1" };
         
         WriteLine($"Would you like to play again? (Please enter '{validInputs[0]}' for yes and '{validInputs[1]}' for no)");
-        
+        WriteLine($"Enter '3' to  clear the board and continue with the same setup.");
         while (true)
         {
             var input = ReadLine();
 
+            if (input is "3")
+            {
+                break;
+            }
+            
             ShouldRestart = input == validInputs[0] || input == validInputs[2];
             
             if (ShouldRestart) break;
