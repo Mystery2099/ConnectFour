@@ -17,9 +17,8 @@ internal class Game : IGame
     private Game()
     {
         var gameMode = SetGameMode();
-
-        _board = Board.Create();
         
+        _board = Board.Create();
         _player1 = Player.Create(1, true);
         _player2 = Player.Create(2, gameMode == GameMode.MultiPlayer);
         _currentPlayer = _player1;
@@ -108,22 +107,22 @@ internal class Game : IGame
         
         WriteLine(output);
         
-        ShouldRestart = AskToRestart();
+        AskToRestart();
     }
 
-    private static bool AskToRestart()
+    private static void AskToRestart()
     {
         string[] validInputs = { "0", "1" };
-        bool restart;
         
         WriteLine($"Would you like to play again? (Please enter '{validInputs[0]}' for yes and '{validInputs[1]}' for no)");
-
+        
         while (true)
         {
             var input = ReadLine();
 
-            restart = input == validInputs[0];
-            if (restart) break;
+            ShouldRestart = input == validInputs[0] || input == validInputs[2];
+            
+            if (ShouldRestart) break;
 
             if (input == validInputs[1])
             {
@@ -134,6 +133,5 @@ internal class Game : IGame
             WriteLine($"Your input was invalid!\nPlease enter '{validInputs[0]}' or '{validInputs[1]}'!");
         }
 
-        return restart;
     }
 }

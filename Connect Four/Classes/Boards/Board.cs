@@ -26,14 +26,11 @@ internal class Board : IBoard
         return true;
     }
 
-    /*
-     * TODO Need to use and return a single boolean variable instead of using return so much
-     * TODO or (preferably)
-     * TODO Need to separate into more several methods
-     */
-    public bool HasWinner()
+
+    public bool HasWinner() => HasRowWinner() || HasColumnWinner() || HasDiagonalLeftToRightWinner() || HasDiagonalRightToLeftWinner();
+
+    private bool HasRowWinner()
     {
-        // Check rows for a winner
         for (var row = 0; row < Rows; row++)
         {
             for (var column = 0; column < Columns - 3; column++)
@@ -48,7 +45,10 @@ internal class Board : IBoard
             }
         }
 
-
+        return false;
+    }
+    private bool HasColumnWinner()
+    {
         for (var row = 0; row < Rows - 3; row++)
         {
             // Check columns for a winner
@@ -62,8 +62,15 @@ internal class Board : IBoard
                     return true;
                 }
             }
+        }
 
-            // Check diagonals for a winner
+        return false;
+    }
+
+    private bool HasDiagonalRightToLeftWinner()
+    {
+        for (var row = 0; row < Rows - 3; row++)
+        {
             for (var column = 0; column < Columns - 3; column++)
             {
                 if (Cells[row, column] != 0 &&
@@ -75,7 +82,13 @@ internal class Board : IBoard
                 }
             }
         }
+        
 
+        return false;
+    }
+
+    private bool HasDiagonalLeftToRightWinner()
+    {
         for (var row = 3; row < Rows; row++)
         {
             for (var col = 0; col < Columns - 3; col++)
