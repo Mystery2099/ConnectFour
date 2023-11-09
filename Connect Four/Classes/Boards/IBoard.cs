@@ -2,12 +2,12 @@
 
 internal interface IBoard
 {
-    short[,] Cells { get; }
-    short Rows { get; }
-    short Columns { get; }
+    int[,] Cells { get; }
+    int Rows { get; }
+    int Columns { get; }
     bool IsFull();
     bool HasWinner();
-    bool IsMoveValid(short column);
-    void MakeMove(short column, byte player);
+    bool IsMoveValid(int column);
+    void MakeMove(int column, byte player);
     void Print();
 }

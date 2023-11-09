@@ -4,16 +4,23 @@ namespace Connect_Four.Classes.Boards;
 
 internal class Board : IBoard
 {
-    private Board(short rows, short columns)
+    private Board(int rows, int columns)
     {
-        Cells = new short[rows, columns];
+        Cells = new int[rows, columns];
         Rows = rows;
         Columns = columns;
     }
 
-    public short[,] Cells { get; }
-    public short Rows { get; }
-    public short Columns { get; }
+    private Board(int[,] boardSize)
+    {
+        Cells = boardSize;
+        Rows = boardSize.GetLength(0);
+        Columns = boardSize.GetLength(1);
+    }
+
+    public int[,] Cells { get; }
+    public int Rows { get; }
+    public int Columns { get; }
     
     public bool IsFull()
     {
@@ -106,12 +113,12 @@ internal class Board : IBoard
         return false;
     }
 
-    public bool IsMoveValid(short column) => column >= 0 && column < Columns && Cells[0, column] is 0;
+    public bool IsMoveValid(int column) => column >= 0 && column < Columns && Cells[0, column] is 0;
 
     /*
      * attempts to make a move for the specified player in the specified column
      */
-    public void MakeMove(short column, byte player)
+    public void MakeMove(int column, byte player)
     {
         for (var row = Rows - 1; row >= 0; row--)
         {
@@ -121,12 +128,25 @@ internal class Board : IBoard
         }
     }
     
+    //The Clone() method that returns a deep copy of the Board
+    public Board Clone() {
+        //Create a new two-dimensional array with the same size as the current board
+        var newBoard = new int[Rows, Columns];
+        //Copy each element from the Board to the newBoard
+        for (var i = 0; i < Rows; i++) {
+            for (var j = 0; j < Columns; j++) {
+                newBoard[i, j] = Cells[i, j];
+            }
+        }
+        //Return a new Board object with the newBoard as a parameter
+        return new Board(newBoard);
+    }
+    
     /*
      * Prints the current state of the board to the console
      */
     public void Print()
     {
-        Clear();
 
         for (var row = 0; row < Rows; row++)
         {
@@ -160,43 +180,27 @@ internal class Board : IBoard
         WriteLine();
     }
 
-    private static BoardSize AskForSize()
+    private static int AskForSize(string prompt)
     {
         while (true)
         {
-            var output = "Enter";
-            var options = Enum.GetValues(typeof(BoardSize));
-            for (var i = 0; i < options.Length; i++)
-            {
-                output += i > 0 ? ",\n" : ' ';
-                output += $"'{i}' for a {options.GetValue(i)} board";
-            }
-            
-            WriteLine(output);
+            WriteLine($"Please enter the number of {prompt} you would like your board to have:");
             var input = ReadLine();
 
-            if (byte.TryParse(input, out var inputNum) && inputNum < options.Length)
-            {
-                return (BoardSize)(options.GetValue(inputNum) ?? BoardSize.Normal);
-            }
+            if (int.TryParse(input, out var inputNum) && inputNum is < 10 and > 3) return inputNum;
 
             Clear();
-            WriteLine("You must enter a number within the given range!");
+            WriteLine("You must enter a number which is less than 10 and greater than 3");
         }
     }
 
     /*
      * Creates a new Board using user input from AskForSize()
      */
-    internal static Board Create() => Create(AskForSize());
-    
+    internal static Board Create() => Create(AskForSize("rows"), AskForSize("columns"));
+
     /*
-     * creates a new board using a parameter so it can be done manually through code
+     * Creates a new board of the given rowCount and columnCount
      */
-    internal static Board Create(BoardSize boardSize) => boardSize switch
-    {
-        BoardSize.Small => new Board(4, 5),
-        BoardSize.Large => new Board(8, 9),
-        _ => new Board(6, 7)
-    };
+    internal static Board Create(int rowCount, int columnCount) => new(rowCount, columnCount);
 }
