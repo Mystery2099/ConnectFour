@@ -10,22 +10,24 @@ internal class HumanPlayer : Player
     
     public override void MakeMove(ref Boards.Board board)
     {
-        short column;
+        int column;
         while (true)
         {
             Write($"{Name}, enter a column number: ");
             var input = ReadLine();
-
-            if (!short.TryParse(input, out column))
+            string errorTxt;
+            if (!int.TryParse(input, out column))
             {
-                WriteLine($"Invalid input. Please enter a number between 0 and {board.Columns - 1}.");
+                errorTxt = $"Invalid input. Please enter a number between 0 and {board.Columns - 1}.";
             }
             else if (!board.IsMoveValid(column))
             {
-                WriteLine("Invalid move. Please choose a different column.");
+                errorTxt = "Invalid move. Please choose a different column.";
             }
             else break;
+            WriteLine(errorTxt);
         }
-        board.MakeMove(column, PlayerNumber);
+        
+        board.MakeMove(column, this.Id);
     }
 }
