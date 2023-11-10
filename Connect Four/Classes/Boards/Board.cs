@@ -11,16 +11,9 @@ internal class Board : IBoard
         Columns = columns;
     }
 
-    private Board(int[,] boardSize)
-    {
-        Cells = boardSize;
-        Rows = boardSize.GetLength(0);
-        Columns = boardSize.GetLength(1);
-    }
-
-    public int[,] Cells { get; }
-    public int Rows { get; }
-    public int Columns { get; }
+    public int[,] Cells { get; private set; }
+    public int Rows { get; private set; }
+    public int Columns { get; private set; }
     
     public bool IsFull()
     {
@@ -128,20 +121,28 @@ internal class Board : IBoard
         }
     }
     
-    //The Clone() method that returns a deep copy of the Board
-    public Board Clone() {
-        //Create a new two-dimensional array with the same size as the current board
-        var newBoard = new int[Rows, Columns];
-        //Copy each element from the Board to the newBoard
+    //The DeepCopy() method that returns a deep copy of the Board
+    public Board DeepCopy()
+    {
+        var newBoard = ShallowCopy();
+        var newCells = new int[Rows, Columns];
         for (var i = 0; i < Rows; i++) {
             for (var j = 0; j < Columns; j++) {
-                newBoard[i, j] = Cells[i, j];
+                newCells[i, j] = Cells[i, j];
             }
         }
-        //Return a new Board object with the newBoard as a parameter
-        return new Board(newBoard);
+
+        newBoard.Cells = newCells;
+        newBoard.Rows = newCells.GetLength(0);
+        newBoard.Columns = newCells.GetLength(1);
+        return newBoard;
     }
-    
+
+    /*
+     * Makes and returns a shallow copy of the board
+     */
+    private Board ShallowCopy() => (Board)MemberwiseClone();
+
     /*
      * Prints the current state of the board to the console
      */
@@ -187,10 +188,10 @@ internal class Board : IBoard
             WriteLine($"Please enter the number of {prompt} you would like your board to have:");
             var input = ReadLine();
 
-            if (int.TryParse(input, out var inputNum) && inputNum is < 10 and > 0) return inputNum;
+            if (int.TryParse(input, out var inputNum) && inputNum is <= 10 and > 0) return inputNum;
 
             Clear();
-            WriteLine("You must enter a number which is less than 10 and greater than 3");
+            WriteLine("You must enter a number between 1 and 11");
         }
     }
 
