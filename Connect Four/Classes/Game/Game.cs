@@ -1,4 +1,5 @@
-﻿using Connect_Four.Classes.Boards;
+﻿using System.Runtime.InteropServices;
+using Connect_Four.Classes.Boards;
 using Connect_Four.Classes.Players;
 using static System.Console;
 
@@ -6,21 +7,23 @@ namespace Connect_Four.Classes.Game;
 
 internal class Game : IGame
 {
-    public static bool ShouldRestartProgram { get; private set; }
+    public static bool ShouldRestartProgram { get; private set; } = false;
 
     private Board _currentBoard;
     private Board? _previousBoard;
     private readonly Player _player1;
     private readonly Player _player2;
     private Player _currentPlayer;
+    private readonly GameMode _gameMode;
 
     private Game()
     {
-        var gameMode = SetGameMode();
+        _gameMode = SetGameMode();
         
+        UpdateTitle(_gameMode.ToString());
         _currentBoard = Board.Create();
         _player1 = Player.Create(1, true);
-        _player2 = Player.Create(2, gameMode == GameMode.MultiPlayer);
+        _player2 = Player.Create(2, _gameMode is GameMode.MultiPlayer);
         _currentPlayer = _player1;
         
     }
@@ -28,11 +31,11 @@ internal class Game : IGame
     /*
      * starts a new game by asking the player some questions and creating a new instance of the Game class.
      */
-    public static void Start()
+    internal static void Start()
     {
         Clear();
+        ResetTitle(); 
         WriteLine("Welcome to Connect Four!\n");
-        //Creates a new Game and starts the game loop in Play()
         new Game().Play();
     }
 
@@ -42,7 +45,7 @@ internal class Game : IGame
     private static GameMode SetGameMode()
     {
         string[] validInputs = { "0", "1" };
-
+        
         while (true)
         {
             WriteLine($"Enter '{validInputs[0]}' for single player (Play against a computer with completely randomized moves)\n" +
@@ -53,7 +56,7 @@ internal class Game : IGame
                 WriteLine("Invalid input. Please try again.");
                 continue;
             }
-
+            
             if (input == validInputs[0])
                 return GameMode.SinglePlayer;
             if (input == validInputs[1])
@@ -78,16 +81,17 @@ internal class Game : IGame
             }
             _currentBoard.Print();
 
-            _previousBoard = _currentBoard.Clone();
+            _previousBoard = _currentBoard.DeepCopy();
 
             _currentPlayer.MakeMove(ref _currentBoard);
             
             
             if (_currentBoard.HasWinner() || _currentBoard.IsFull())
             {
-                
                 GameOver();
+                UpdateTitle(_gameMode.ToString());
                 if (!ShouldRestartProgram) continue;
+                UpdateTitle("Closing");
                 break;
             }
             
@@ -101,6 +105,7 @@ internal class Game : IGame
      */
     public void GameOver()
     {
+        UpdateTitle("Game Over");
         Clear();
         _currentBoard.Print();
 
@@ -125,7 +130,7 @@ internal class Game : IGame
     private bool ClearBoard()
     {
         string[] validInputs = { "0", "1" };
-        WriteLine($"Enter '{validInputs[0]}' to clear the board and continue player\n" +
+        WriteLine($"Enter '{validInputs[0]}' to clear the board and continue playing\n" +
                   $"Enter '{validInputs[^1]}' to end the current game");
         while (true)
         {
@@ -144,15 +149,16 @@ internal class Game : IGame
                 return true;
             }
 
-            if (input == validInputs[^1]) return false;
+            if (input == validInputs[1]) return false;
             
         }
     }
 
-    private static void AskToRestart()
+    private void AskToRestart()
     {
+        UpdateTitle("Restart");
         string[] validInputs = { "0", "1" };
-        WriteLine($"Enter '{validInputs[0]}' if you'd like to restart the program\n" +
+        WriteLine($"Enter '{validInputs[0]}' to restart the program\n" +
                   $"Enter '{validInputs[^1]}' to close the program");
         while (true)
         {
@@ -173,4 +179,13 @@ internal class Game : IGame
         }
 
     }
+    
+    static void UpdateTitle(string newTitle)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) 
+            Title = $"Connect 4 - {newTitle}";
+        else ResetTitle();
+    }
+
+    internal static void ResetTitle() => Title = "Connect 4";
 }
