@@ -6,14 +6,13 @@ namespace Connect_Four.Classes.Game;
 
 internal class Game : IGame
 {
-    public static bool ShouldRestart { get; private set; }
+    public static bool ShouldRestartProgram { get; private set; }
 
     private Board _currentBoard;
     private Board? _previousBoard;
     private readonly Player _player1;
     private readonly Player _player2;
     private Player _currentPlayer;
-    private bool _gameOver;
 
     private Game()
     {
@@ -24,7 +23,6 @@ internal class Game : IGame
         _player2 = Player.Create(2, gameMode == GameMode.MultiPlayer);
         _currentPlayer = _player1;
         
-        _gameOver = false;
     }
     
     /*
@@ -84,17 +82,12 @@ internal class Game : IGame
 
             _currentPlayer.MakeMove(ref _currentBoard);
             
-            _gameOver = _currentBoard.HasWinner() || _currentBoard.IsFull();
             
-            if (_gameOver)
+            if (_currentBoard.HasWinner() || _currentBoard.IsFull())
             {
+                
                 GameOver();
-                if (!ShouldRestart)
-                {
-                    _currentBoard = Board.Create(_currentBoard.Rows, _currentBoard.Columns);
-                    _currentPlayer = _player1;
-                    continue;
-                }
+                if (!ShouldRestartProgram) continue;
                 break;
             }
             
@@ -124,27 +117,50 @@ internal class Game : IGame
         
         WriteLine(output);
         
+        if (ClearBoard()) return;
+        
         AskToRestart();
+    }
+
+    private bool ClearBoard()
+    {
+        string[] validInputs = { "0", "1" };
+        WriteLine($"Enter '{validInputs[0]}' to clear the board and continue player\n" +
+                  $"Enter '{validInputs[^1]}' to end the current game");
+        while (true)
+        {
+            var input = ReadLine();
+            
+            if (!validInputs.Contains(input))
+            {
+                WriteLine($"Please enter '{validInputs[0]}' or '{validInputs[^1]}'");
+                continue;
+            }
+            
+            if (input == validInputs[0])
+            {
+                _currentBoard = Board.Create(_currentBoard.Rows, _currentBoard.Columns);
+                _currentPlayer = _player1;
+                return true;
+            }
+
+            if (input == validInputs[^1]) return false;
+            
+        }
     }
 
     private static void AskToRestart()
     {
         string[] validInputs = { "0", "1" };
-        
-        WriteLine($"Would you like to play again? (Please enter '{validInputs[0]}' for yes and '{validInputs[1]}' for no)");
-        WriteLine($"Enter '3' to  clear the board and continue with the same setup.");
+        WriteLine($"Enter '{validInputs[0]}' if you'd like to restart the program\n" +
+                  $"Enter '{validInputs[^1]}' to close the program");
         while (true)
         {
             var input = ReadLine();
-
-            if (input is "3")
-            {
-                break;
-            }
             
-            ShouldRestart = input == validInputs[0] || input == validInputs[2];
+            ShouldRestartProgram = input == validInputs[0] || input == validInputs[2];
             
-            if (ShouldRestart) break;
+            if (ShouldRestartProgram) break;
 
             if (input == validInputs[1])
             {
@@ -152,7 +168,8 @@ internal class Game : IGame
                 break;
             }
             
-            WriteLine($"Your input was invalid!\nPlease enter '{validInputs[0]}' or '{validInputs[1]}'!");
+            WriteLine("Your input was invalid!\n" +
+                      $"Please enter '{validInputs[0]}' or '{validInputs[1]}'!");
         }
 
     }
