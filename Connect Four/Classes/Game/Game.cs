@@ -180,11 +180,15 @@ internal class Game : IGame
 
     }
 
-    private static void UpdateTitle(string newTitle)
+    private static void UpdateTitle(string subTitle)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) 
-            Title = $"Connect 4 - {newTitle}";
+            Title = $"Connect 4 - {subTitle}";
     }
 
-    private static void ResetTitle() => Title = "Connect 4";
+    private static void ResetTitle()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) 
+            Title = "Connect 4";
+    }
 }
