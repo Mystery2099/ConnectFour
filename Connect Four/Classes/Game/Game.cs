@@ -131,14 +131,14 @@ internal class Game : IGame
     {
         string[] validInputs = { "0", "1" };
         WriteLine($"Enter '{validInputs[0]}' to clear the board and continue playing\n" +
-                  $"Enter '{validInputs[^1]}' to end the current game");
+                  $"Enter '{validInputs[1]}' to end the current game");
         while (true)
         {
             var input = ReadLine();
             
             if (!validInputs.Contains(input))
             {
-                WriteLine($"Please enter '{validInputs[0]}' or '{validInputs[^1]}'");
+                WriteLine($"Please enter '{validInputs[0]}' or '{validInputs[1]}'");
                 continue;
             }
             
@@ -159,12 +159,12 @@ internal class Game : IGame
         UpdateTitle("Restart");
         string[] validInputs = { "0", "1" };
         WriteLine($"Enter '{validInputs[0]}' to restart the program\n" +
-                  $"Enter '{validInputs[^1]}' to close the program");
+                  $"Enter '{validInputs[1]}' to close the program");
         while (true)
         {
             var input = ReadLine();
-            
-            ShouldRestartProgram = input == validInputs[0] || input == validInputs[2];
+
+            ShouldRestartProgram = input == validInputs[0];
             
             if (ShouldRestartProgram) break;
 
@@ -179,13 +179,12 @@ internal class Game : IGame
         }
 
     }
-    
-    static void UpdateTitle(string newTitle)
+
+    private static void UpdateTitle(string newTitle)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) 
             Title = $"Connect 4 - {newTitle}";
-        else ResetTitle();
     }
 
-    internal static void ResetTitle() => Title = "Connect 4";
+    private static void ResetTitle() => Title = "Connect 4";
 }
